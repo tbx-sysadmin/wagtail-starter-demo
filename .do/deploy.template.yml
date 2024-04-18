@@ -4,8 +4,12 @@ spec:
   alerts:
     - rule: DEPLOYMENT_FAILED
     - rule: DOMAIN_FAILED
+
   services:
     - name: wagtail
+      github:
+        repo: tbx-sysadmin/wagtail-starter-demo
+        branch: master
       dockerfile_path: Dockerfile
       instance_count: 1
       source_dir: .

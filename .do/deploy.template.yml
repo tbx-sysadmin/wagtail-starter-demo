@@ -1,4 +1,6 @@
 spec:
+  name: wagtail
+
   alerts:
     - rule: DEPLOYMENT_FAILED
     - rule: DOMAIN_FAILED

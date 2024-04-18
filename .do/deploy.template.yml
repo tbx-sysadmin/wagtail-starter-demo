@@ -1,0 +1,25 @@
+spec:
+  alerts:
+    - rule: DEPLOYMENT_FAILED
+    - rule: DOMAIN_FAILED
+  services:
+    - name: wagtail
+      dockerfile_path: Dockerfile
+      instance_count: 1
+      source_dir: .
+
+  ingress:
+    rules:
+    - component:
+        name: wagtail
+      match:
+        path:
+          prefix: /
+
+  databases:
+    - name: wagtail
+      engine: PG
+      version: 15
+      production: false
+      db_name: wagtail
+      db_user: wagtail

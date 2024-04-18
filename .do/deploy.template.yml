@@ -12,6 +12,7 @@ spec:
         branch: master
       dockerfile_path: Dockerfile
       instance_count: 1
+      instance_size_slug: basic-xxs
       source_dir: .
 
   ingress:
@@ -27,5 +28,5 @@ spec:
       engine: PG
       version: "12"
       production: false
-      db_name: wagtail
-      db_user: wagtail
+      db_name: wagtail-db
+      db_user: wagtail-db

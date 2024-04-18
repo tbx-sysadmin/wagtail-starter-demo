@@ -23,7 +23,7 @@ spec:
           prefix: /
 
   databases:
-    - name: wagtail
+    - name: wagtail-db
       engine: PG
       version: "15"
       production: false

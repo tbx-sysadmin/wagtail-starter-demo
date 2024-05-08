@@ -4,3 +4,5 @@ dj-database-url
 psycopg[binary]
 whitenoise
 gunicorn==20.0.4
+django-storages
+wagtail-storages

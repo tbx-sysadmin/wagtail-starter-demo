@@ -223,10 +223,6 @@ class SectionBlocks(blocks.StreamBlock):
         features=["bold", "italic", "link", "ol", "ul", "h3"],
         template="components/streamfield/blocks/paragraph_block.html",
     )
-    # image = ImageBlock()
-    # quote = QuoteBlock()
-    # accordion = AccordionBlock()   
-    # featured_article = FeaturedArticleBlock()
 
 
 class SectionBlock(blocks.StructBlock):
@@ -245,8 +241,6 @@ class SectionBlock(blocks.StructBlock):
 class StoryBlock(blocks.StreamBlock):
     section = SectionBlock()
     cta = CTASectionBlock()
-    # cards = CardSectionBlock()
-    # plain_cards = PlainCardSectionBlock()
     statistics = StatisticSectionBlock()
 
     class Meta:

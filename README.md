@@ -1,18 +1,17 @@
 # Wagtail Starter Kit - Django Project Template
 
-[![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/tbx-sysadmin/wagtail-starter-demo/tree/master)
-
 This Django project template is designed for creating Wagtail builds quickly, intended for developers to bootstrap their Wagtail site development using `wagtail start --template=`. The template comes with pre-defined pages, blocks, functionalities, and fixtures to streamline the initial setup process.
 
 ## Todo
 
-- [ ] Update fixtures an images to be more generic
+- [ ] Update fixtures and images to be more generic
 - [ ] Add some form of linting
 - [ ] Load in fonts locally
 - [ ] Add CI tasks
 - [ ] Finish or alter the footer's signup feature to link to a form page
+- [ ] Add support for wagtail search promotions
 - [ ] Style the related pages slideshow component
-- [ ] Accessibility,
+- [ ] Accessibility, 
     - [ ] Resolve contrast issues with button component
     - [ ] Windows High-Contrast mode support
 - [ ] Style other block types
@@ -70,7 +69,7 @@ To customize this template for your specific project needs, follow these steps:
 2. Make changes and customizations within the new project.
 3. Once you've completed your modifications, backport them to the original template. You can do this manually or by replacing occurrences of `myproject` with `{{ project_name }}` including the name for the app folder with `project_name` (without double curly brackets). before transferring the updated code to the root repository.
 4. Template files (.html), have to be modified using `templatetag openblock`. It may be easier to alter the root directory directly instead, however a general rule is to replace opening template tags with `templatetag openblock` and closing tags with `templatetag closeblock`, similary double curly braces will need to be replaced with `templatetag openvariable`.
-5. Copy any static assets accross using `npm run build:prod` and `./manage.py collectstatic`.
+5. Copy any static assets accross using `npm run build:prod` and `./manage.py collectstatic`. 
 6. Update fixtures using `make dump-data`
 
 

@@ -14,7 +14,7 @@ def create_homepage(apps, schema_editor):
     Page.objects.filter(id=2).delete()
 
     # Create content type for homepage model
-    homepage_content_type, __ = ContentType.objects.get_or_create(
+    homepage_content_type, _ = ContentType.objects.get_or_create(
         model="homepage", app_label="home"
     )
 

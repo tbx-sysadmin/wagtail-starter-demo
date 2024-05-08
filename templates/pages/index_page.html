@@ -36,8 +36,8 @@
 
         {% if page.related_pages %}
             <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 pb-20 md:pb-40">
-                {% for related_page in page.related_pages %}
-                    {% include "components/card.html" with page=related_page.specific %}
+                {% for related_page in page.related_pages.specific %}
+                    {% include "components/card.html" with page=related_page %}
                 {% endfor %}
             </section>
         {% endif %}        

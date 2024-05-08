@@ -75,7 +75,6 @@ class ArticlePage(BasePage):
             return self.publication_date.strftime("%d %b %Y")
         elif self.first_published_at:
             return self.first_published_at.strftime("%d %b %Y")
-        return "unpublished page"  # prevent template error in preview panel
 
 
 class NewsListingPage(BasePage):
@@ -87,13 +86,6 @@ class NewsListingPage(BasePage):
         blank=True, features=["bold", "italic", "link"]
     )
 
-    # featured_card = StreamField(
-    #     [("cta", FeaturedArticleBlock())],
-    #     blank=True,
-    #     max_num=1,
-    #     help_text="Choose a featured article to display at the very top of the list.",   
-    # )
-
     search_fields = BasePage.search_fields + [index.SearchField("introduction")]
 
     content_panels = (
@@ -104,17 +96,6 @@ class NewsListingPage(BasePage):
             HelpPanel("This page will automatically display child Article pages."),
         ]
     )
-
-    def get_base_queryset(self):
-        return (
-            ArticlePage.objects.live()
-            .public()
-            .annotate(
-                date=Coalesce("publication_date", "first_published_at"),
-            )
-            .select_related("listing_image", "author", "topic")
-            .order_by("-date")
-        )
 
     def paginate_queryset(self, queryset, request):
         """Paginate the queryset."""
@@ -131,26 +112,35 @@ class NewsListingPage(BasePage):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        queryset = self.get_base_queryset()
+        queryset = (
+            ArticlePage.objects.live()
+            .public()
+            .annotate(
+                date=Coalesce("publication_date", "first_published_at"),
+            )
+            .select_related("listing_image", "author", "topic")
+            .order_by("-date")
+        )
 
         article_topics = ArticleTopic.objects.filter(
             article_pages__isnull=False
-        ).values_list("title", flat=True).distinct().order_by("title")
+        ).values("title", "slug").distinct().order_by("title")
         matching_topic = False
 
         topic_query_param = request.GET.get("topic")
-        if topic_query_param and topic_query_param in article_topics:
+        if topic_query_param and topic_query_param in article_topics.values_list(
+            "slug", flat=True
+        ):
             matching_topic = topic_query_param
-            queryset = queryset.filter(topic__title=topic_query_param)
+            queryset = queryset.filter(topic__slug=topic_query_param)
 
 
         # Paginate article pages
-        paginator, page, queryset, is_paginated = self.paginate_queryset(
+        paginator, page, _object_list, is_paginated = self.paginate_queryset(
             queryset, request
         )
         context["paginator"] = paginator
         context["paginator_page"] = page
-        context["object_list"] = page
         context["is_paginated"] = is_paginated
 
         # Topics

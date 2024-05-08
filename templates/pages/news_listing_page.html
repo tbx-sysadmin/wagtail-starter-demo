@@ -76,14 +76,14 @@
                     </a>
                     {% for topic in topics %}
                         <a 
-                            href="{% pageurl page %}?topic={{ topic.title }}" 
+                            href="{% pageurl page %}?topic={{ topic.slug }}" 
                             class="
                             py-2.5 px-5
                             text-sm
                             uppercase
                             font-codepro
                             font-medium
-                            {% if matching_topic == topic %}
+                            {% if matching_topic == topic.slug %}
                             bg-mackerel-300 dark:bg-white
                             text-white dark:text-mackerel-400
                             border-mackerel-300 dark:border-white
@@ -103,7 +103,7 @@
                             border-[1px]
                             rounded-[85px]
                             ">
-                            {{ topic }}
+                            {{ topic.title }}
                         </a>
                     {% endfor %}
                     </div>
@@ -112,9 +112,9 @@
         </div>
 
         
-        {% if object_list %}
+        {% if paginator_page %}
             <section class="grid grid-cols-1 gap-8 lg:gap-10 pb-20 md:pb-40">
-                {% for subpage in object_list %}
+                {% for subpage in paginator_page %}
                     {% include "components/card--article.html" with page=subpage.specific %}
                 {% endfor %}
 

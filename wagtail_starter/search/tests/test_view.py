@@ -14,7 +14,7 @@ class SearchViewTests(TestCase):
         site.hostname = "testserver"
         site.save()
         cls.home = HomePage.objects.first()
-        cls.SEARCH_URL = "/search/"
+        cls.search_url = reverse("search")
 
     def test_search_listings_always_return_noindex(self):
         """
@@ -26,24 +26,21 @@ class SearchViewTests(TestCase):
             on Google.
         """
         unsafe_to_index_search_urls = [
-            self.SEARCH_URL + "?query=illicit",
-            self.SEARCH_URL + "?query=None illicit content",
-            self.SEARCH_URL + "?bar=foo&query=illicit text"
+            self.search_url + "?query=illicit",
+            self.search_url + "?query=None illicit content",
+            self.search_url + "?bar=foo&query=illicit text",
         ]
 
         for search_url in unsafe_to_index_search_urls:
             with override_settings(SEO_NOINDEX=True):
                 resp = self.client.get(search_url)
-                self.assertEqual(settings.SEO_NOINDEX, True)
                 # Should contain noindex
                 self.assertContains(resp, '<meta name="robots" content="noindex">')
                 self.assertEqual(200, resp.status_code)
 
-        # Even with SEO_NOINDEX set to False, the search view should still contain noindex
-        for search_url in unsafe_to_index_search_urls:
+            # Even with SEO_NOINDEX set to False, the search view should still contain noindex
             with override_settings(SEO_NOINDEX=False):
                 resp = self.client.get(search_url)
-                self.assertEqual(settings.SEO_NOINDEX, False)
                 # Should contain noindex
                 self.assertContains(resp, '<meta name="robots" content="noindex">')
                 self.assertEqual(200, resp.status_code)
@@ -51,7 +48,7 @@ class SearchViewTests(TestCase):
     def test_search_view_results(self):
         query = self.home.title
         resp = self.client.get(
-            self.SEARCH_URL,
+            self.search_url,
             {"query": query},
             format="json",
         )
@@ -60,7 +57,7 @@ class SearchViewTests(TestCase):
 
     def test_search_view_no_results(self):
         resp = self.client.get(
-            self.SEARCH_URL,
+            self.search_url,
             {"query": "gibberish"},
             format="json",
         )

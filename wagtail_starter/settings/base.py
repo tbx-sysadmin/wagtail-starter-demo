@@ -287,3 +287,9 @@ LOGGING = {
         },
     },
 }
+
+CACHE_CONTROL_S_MAXAGE = int(os.environ.get("CACHE_CONTROL_S_MAXAGE", 600))
+
+CACHE_CONTROL_STALE_WHILE_REVALIDATE = int(
+    os.environ.get("CACHE_CONTROL_STALE_WHILE_REVALIDATE", 30)
+)

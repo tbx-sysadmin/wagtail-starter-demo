@@ -45,7 +45,7 @@ spec:
   databases:
     - name: wagtail-db
       engine: PG
-      version: "15"
+      version: "14"
       production: false
       db_name: wagtail-db
       db_user: wagtail-db

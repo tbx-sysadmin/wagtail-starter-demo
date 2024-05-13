@@ -1,16 +1,16 @@
-# fly.toml app configuration file generated for wagtail-starter-demo-falling-shadow-4695 on 2024-05-13T10:14:13+01:00
+# fly.toml app configuration file generated for wagtail-starter-demo on 2024-05-13T10:38:30+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'wagtail-starter-demo-falling-shadow-4695'
+app = 'wagtail-starter-demo'
 primary_region = 'lhr'
 
 [build]
   dockerfile = 'Dockerfile'
 
 [env]
-  DATABASE_URL = 'sqlite:///data/db.sqlite3'
+  DATABASE_URL = 'sqlite:////data/db.sqlite3'
   MEDIA_ROOT = '/data/media'
   PORT = '8000'
 

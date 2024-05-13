@@ -15,7 +15,7 @@ console_command = "/bin/bash"
   MEDIA_ROOT = '/data/media'
   PORT = '8000'
 
-[[mounts]]
+[mounts]
   source = 'wagtail'
   destination = '/data'
   initial_size = '1GB'

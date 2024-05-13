@@ -1,11 +1,11 @@
-# fly.toml app configuration file generated for wagtail-starter-demo on 2024-05-13T10:38:30+01:00
+# fly.toml app configuration file generated for wagtail-starter-demo on 2024-05-13T13:43:38+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = 'wagtail-starter-demo'
 primary_region = 'lhr'
-console_command = "/bin/bash"
+console_command = '/bin/bash'
 
 [build]
   dockerfile = 'Dockerfile'
@@ -15,7 +15,7 @@ console_command = "/bin/bash"
   MEDIA_ROOT = '/data/media'
   PORT = '8000'
 
-[mounts]
+[[mounts]]
   source = 'wagtail'
   destination = '/data'
   initial_size = '1GB'

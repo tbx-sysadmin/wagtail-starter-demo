@@ -36,3 +36,7 @@ console_command = '/bin/bash'
   memory = '512mb'
   cpu_kind = 'shared'
   cpus = 1
+
+[[statics]]
+  guest_path = "/data/media"
+  url_prefix = "/media"

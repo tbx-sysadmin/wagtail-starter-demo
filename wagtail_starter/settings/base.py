@@ -296,3 +296,15 @@ CACHE_CONTROL_S_MAXAGE = int(os.environ.get("CACHE_CONTROL_S_MAXAGE", 600))
 CACHE_CONTROL_STALE_WHILE_REVALIDATE = int(
     os.environ.get("CACHE_CONTROL_STALE_WHILE_REVALIDATE", 30)
 )
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "database_cache",
+    }
+}
+
+# The Django default for the maximum number of GET or POST parameters is 1000. For
+# especially large Wagtail pages with many fields, we need to override this. See
+# https://docs.djangoproject.com/en/3.2/ref/settings/#data-upload-max-number-fields
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000

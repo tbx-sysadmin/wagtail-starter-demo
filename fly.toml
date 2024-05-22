@@ -1,4 +1,10 @@
+# fly.toml app configuration file generated for wagtail-news-template on 2024-05-22T10:31:25+01:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
 app = 'wagtail-news-template'
+primary_region = 'lhr'
 console_command = '/bin/bash'
 
 [build]
@@ -32,5 +38,5 @@ console_command = '/bin/bash'
   cpus = 1
 
 [[statics]]
-  guest_path = "/data/media"
-  url_prefix = "/media"
+  guest_path = '/data/media'
+  url_prefix = '/media'

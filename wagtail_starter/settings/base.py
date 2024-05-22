@@ -25,8 +25,6 @@ ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
 if "CSRF_TRUSTED_ORIGINS" in os.environ:
     CSRF_TRUSTED_ORIGINS = os.environ["CSRF_TRUSTED_ORIGINS"].split(",")
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -73,7 +71,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "django.middleware.security.SecurityMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
@@ -161,7 +158,7 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
 
-MEDIA_ROOT = os.environ.get("MEDIA_ROOT", os.path.join(BASE_DIR, "media"))
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
 # Default storage settings, with the staticfiles storage updated.
@@ -177,6 +174,13 @@ STORAGES = {
     "staticfiles": {
         "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
     },
+}
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "database_cache",
+    }
 }
 
 if "AWS_STORAGE_BUCKET_NAME" in os.environ:
@@ -242,6 +246,7 @@ WAGTAILSEARCH_BACKENDS = {
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 WAGTAILADMIN_BASE_URL = "http://example.com"
+WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS = False
 
 # Custom image model
 # https://docs.wagtail.io/en/stable/advanced_topics/images/custom_image_model.html
@@ -297,14 +302,4 @@ CACHE_CONTROL_STALE_WHILE_REVALIDATE = int(
     os.environ.get("CACHE_CONTROL_STALE_WHILE_REVALIDATE", 30)
 )
 
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
-        "LOCATION": "database_cache",
-    }
-}
-
-# The Django default for the maximum number of GET or POST parameters is 1000. For
-# especially large Wagtail pages with many fields, we need to override this. See
-# https://docs.djangoproject.com/en/3.2/ref/settings/#data-upload-max-number-fields
-DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
